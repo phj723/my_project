@@ -1,10 +1,411 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <title>Title</title>
-    </head>
-    <body>
+<!doctype html>
+<html lang="ko">
 
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+              integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+              crossorigin="anonymous">
+
+        <!-- JS -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+
+
+        <!-- 구글폰트 -->
+        <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+
+
+        <title>스엠이 일 안 해서 직접 만든 샤이니 모아보기</title>
+
+        <!-- style -->
+        <style type="text/css">
+            * {
+                font-family: 'Stylish', sans-serif;
+            }
+
+            .wrap {
+                width: 1200px;
+                margin: auto;
+            }
+
+            .cards-box {
+                width: 360px;
+                float: left;
+            }
+
+        </style>
+        <script>
+            $(document).ready(function () {
+                showSMNews();
+                showTwitters();
+                showNaverNews();
+            });
+
+            function showSMNews() {
+                $.ajax({
+                    type: "GET",
+                    url: "/smnews",
+                    data: {},
+                    success: function (response) {
+                        if (response["result"] == "success") {
+                            let smnews = response["smnews"];
+                            for (let i = 0; i < smnews.length; i++) {
+                                makeSMNewsCard();
+                            }
+                        } else {
+                            alert("SM TOWN 뉴스를 받아오지 못했습니다");
+                        }
+                    }
+                })
+            }
+
+            function makeSMNewsCard() {
+                let tempHtml = ``
+                $("#smnews-cards").append(tempHtml);
+            }
+
+            function showTwitters() {
+                $.ajax({
+                    type: "GET",
+                    url: "/twitter",
+                    data: {},
+                    success: function (response) {
+                        if (response["result"] == "success") {
+                            let twitters = response["twitters"];
+                            for (let i = 0; i < twitters.length; i++) {
+                                makeTwitterCard(twitters[i]);
+                            }
+                        } else {
+                            alert("트위터를 받아오지 못했습니다");
+                        }
+                    }
+                })
+            }
+
+            function makeTwitterCard(contents) {
+                let tempHtml = `<div class="card">
+                                    <div class="card-body">
+                                        <p class="card-text">${contents}</p>
+                                        <p class="card-text"><small class="text-muted">${}</small>
+                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                                                 height="20" onclick="bookmark()" style="cursor:pointer">
+                                        </p>
+                                    </div>
+                                </div>`
+                $("#twitter-cards").append(tempHtml);
+            }
+
+            function showNaverNews() {
+                $.ajax({
+                    type: "GET",
+                    url: "/navernews",
+                    data: {},
+                    success: function (response) {
+                        if (response["result"] == "success") {
+                            let navernews = response["navernewstitle"];
+                            for (let i = 0; i < navernews.length; i++) {
+                                makeNaverNewsCard();
+                            }
+                        } else {
+                            alert("네이버 뉴스를 받아오지 못했습니다");
+                        }
+                    }
+                })
+            }
+
+            function makeNaverNewsCard(img, headline, time) {
+                let tempHtml = `<div class="card">
+                                    <img class="card-img-top"
+                                         src="${img}"
+                                         alt="Card image cap">
+                                    <div class="card-body">
+                                        <h5 class="card-title">${headline}</h5>
+                                        <p class="card-text"><small class="text-muted">${time}</small>
+                                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                                                 height="20" onclick="bookmark()" style="cursor:pointer">
+                                        </p>
+                                    </div>
+                                </div>`
+                $("#navernews-cards").append(tempHtml);
+            }
+
+            function bookmark() {
+                alert('북마크에 추가되었습니다.')
+            }
+        </script>
+
+    </head>
+
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="#">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                     height="50">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
+                    aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">온유</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">종현</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">민호</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">키</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">태민</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="#">북마크</a>
+                    </li>
+
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+        </nav>
+
+        <!--        유튜브 뮤비 링크 넣는 부분-->
+        <!--        지금은 바로 유튜브가 재생이 되는데 og img 넣고 url 넣을거임.. 근데 스크래핑 안됨 ㅠㅠ-->
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <iframe width="853" height="480" src="https://www.youtube.com/embed/jWhUIuucNdg" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
+                <div class="carousel-item">
+                    <iframe width="853" height="480" src="https://www.youtube.com/embed/6prjy441FqY" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
+                <div class="carousel-item">
+                    <iframe width="853" height="480" src="https://www.youtube.com/embed/jxZkprsz2Go" frameborder="0"
+                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen></iframe>
+                </div>
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+
+        <!--        세로 3줄로 박스 넣는 공간임. 카드끼리, 박스끼리 간격 설정해야함. 전체 가운데 정렬도 해야 함.-->
+        <!--        북마크 버튼만 만듦. 기능 추가해야 함-->
+        <!--        공홈 뉴스 박스 : 타이틀+사진+본문있는 카드 박스로 할 것임-->
+        <div class="cards-box" id="smnews-cards">
+            <div class="card" style="width: 360px;">
+                <img class="card-img-top"
+                     src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">슴뉴스 헤드라인</h5>
+                    <p class="card-text">슴뉴스 내용 블라블라 태미니 렬리티 9/3 첫방송~~~~</p>
+                    <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago </small>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                             height="20" onclick="bookmark()" style="cursor:pointer">
+                    </p>
+                </div>
+            </div>
+            <div class="card" style="width: 360px;">
+                <img class="card-img-top"
+                     src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">슴뉴스 헤드라인</h5>
+                    <p class="card-text">슴뉴스 내용 블라블라 태미니 렬리티 9/3 첫방송~~~~</p>
+                    <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago </small>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                             height="20" onclick="bookmark()" style="cursor:pointer">
+                    </p>
+                </div>
+            </div>
+            <div class="card" style="width: 360px;">
+                <img class="card-img-top"
+                     src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">슴뉴스 헤드라인</h5>
+                    <p class="card-text">슴뉴스 내용 블라블라 태미니 렬리티 9/3 첫방송~~~~</p>
+                    <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago </small>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                             height="20" onclick="bookmark()" style="cursor:pointer">
+                    </p>
+                </div>
+            </div>
+            <div class="card" style="width: 360px;">
+                <img class="card-img-top"
+                     src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">슴뉴스 헤드라인</h5>
+                    <p class="card-text">슴뉴스 내용 블라블라 태미니 렬리티 9/3 첫방송~~~~</p>
+                    <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago </small>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                             height="20" onclick="bookmark()" style="cursor:pointer">
+                    </p>
+                </div>
+            </div>
+            <div class="card" style="width: 360px;">
+                <img class="card-img-top"
+                     src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">슴뉴스 헤드라인</h5>
+                    <p class="card-text">슴뉴스 내용 블라블라 태미니 렬리티 9/3 첫방송~~~~</p>
+                    <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago </small>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                             height="20" onclick="bookmark()" style="cursor:pointer">
+                    </p>
+                </div>
+            </div>
+
+        </div>
+
+        <!--        트위터 박스 : 사진 없을 수도 있음. 타이틀ㄴㄴ+사진ㄴㄴ+본문만 있는 박스로 할 것임-->
+        <div class="cards-box" id="twitter-cards">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">트위터 본문 가져오기~~~ 블라블라~~~</p>
+                    <p class="card-text"><small class="text-muted">트위터 올라온 시간 Last updated 3 mins ago</small>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                             height="20" onclick="bookmark()" style="cursor:pointer">
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">트위터 본문 가져오기~~~ 블라블라~~~</p>
+                    <p class="card-text"><small class="text-muted">트위터 올라온 시간 Last updated 3 mins ago</small>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                             height="20" onclick="bookmark()" style="cursor:pointer">
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">트위터 본문 가져오기~~~ 블라블라~~~</p>
+                    <p class="card-text"><small class="text-muted">트위터 올라온 시간 Last updated 3 mins ago</small>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                             height="20" onclick="bookmark()" style="cursor:pointer">
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">트위터 본문 가져오기~~~ 블라블라~~~</p>
+                    <p class="card-text"><small class="text-muted">트위터 올라온 시간 Last updated 3 mins ago</small>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                             height="20" onclick="bookmark()" style="cursor:pointer">
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text">트위터 본문 가져오기~~~ 블라블라~~~</p>
+                    <p class="card-text"><small class="text-muted">트위터 올라온 시간 Last updated 3 mins ago</small>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                             height="20" onclick="bookmark()" style="cursor:pointer">
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!--        네이버 뉴스 박스 : 사진 있음. 타이틀ㅇ+사진ㅇ+본문xx 박스-->
+        <div class="cards-box" id="navernews-cards">
+            <div class="card">
+                <img class="card-img-top"
+                     src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">네이버뉴스 헤드라인</h5>
+                    <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago</small>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                             height="20" onclick="bookmark()" style="cursor:pointer">
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top"
+                     src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">네이버뉴스 헤드라인</h5>
+                    <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago</small>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                             height="20" onclick="bookmark()" style="cursor:pointer">
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top"
+                     src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">네이버뉴스 헤드라인</h5>
+                    <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago</small>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                             height="20" onclick="bookmark()" style="cursor:pointer">
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top"
+                     src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">네이버뉴스 헤드라인</h5>
+                    <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago</small>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                             height="20" onclick="bookmark()" style="cursor:pointer">
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <img class="card-img-top"
+                     src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"
+                     alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title">네이버뉴스 헤드라인</h5>
+                    <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago</small>
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQiasp5tLQrtt_RCDZsJKE-7lBmAcc-Bsbkbw&usqp=CAU"
+                             height="20" onclick="bookmark()" style="cursor:pointer">
+                    </p>
+                </div>
+            </div>
+
+        </div>
     </body>
+
 </html>
