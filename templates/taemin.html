@@ -46,76 +46,84 @@
 
             .cards-boxes {
                 text-align: center;
+                padding-top: 210px;
+                margin: 0 auto;
             }
 
-            .navbar {
+            #navbar {
+                height: 200px;
                 position: fixed;
                 width: 100%;
                 z-index: 999;
-                background-image: url("https://pbs.twimg.com/media/Egj1-hBU8AAKP32?format=jpg&name=large");
-                background-position: center;
-                background-size: cover;
-                /*background-color: rgba(121, 229, 203, 0.2 );*/
             }
 
-            #carouselExampleIndicators {
-                padding-top: 90px;
-                width: 853px;
-                margin: 0 auto;
+            .bg-img {
+                background-position: center;
+                background-size: cover;
             }
 
         </style>
         <script>
-            $(document).ready(function() {
-                showSMNews();
+            $(document).ready(function () {
+                // showSMNews();
                 showTwitters();
                 showNaverNews();
+                showBgImage();
             });
 
-            // 슴뉴스를 한 개밖에 안 받아옴.. for문 돌리면 에러나서 일단 카드 하나만 만듦......
-            function showSMNews() {
-                $.ajax({
-                    type: "GET",
-                    url: "/smtown",
-                    data: {},
-                    success: function (response) {
-                        if (response["result"] == "success") {
-                            makeSMNewsCard(response['headlines'], response['contents'], response['times'], response['imgs'], response['urls'])
-
-                        } else {
-                            alert("SM TOWN 뉴스를 받아오지 못했습니다");
-                        }
-                    }
-                })
+            function showBgImage() {
+                var imgArray = new Array();
+                imgArray[0] = "http://socdn.smtown.com/upload/mf/gallery/images/2018/06/25/o_1cgqdtqg6i077p1137t18s64vj11.jpg";
+                imgArray[1] = "http://socdn.smtown.com/upload/mf/gallery/images/2017/12/09/o_1c0tmcgd35h8od216ql9pvnhp1g.jpg";
+                imgArray[2] = "https://stat.ameba.jp/user_images/20200731/15/shizmm/8b/81/j/o1080071914796983163.jpg";
+                var imgNum = Math.round(Math.random() * 3);
+                var bgImg = document.getElementById('navbar');
+                bgImg.style.backgroundImage = 'url(' + imgArray[imgNum] + ')';
             }
 
-            function makeSMNewsCard(headline, content, time, img, url) {
-                let tempHtml = `<div class="card" style="width: 360px;">
-                                    <a href="${url}">
-                                        <img class="card-img-top"
-                                             src="${img}"
-                                             alt="Card image cap">
-                                    </a>
-                                    <div class="card-body">
-                                        <a href="${url}">
-                                        <h5 class="card-title">${headline}</h5>
-                                        </a>
-                                        <a href="${url}"
-                                            <p class="card-text">${content}</p>
-                                        </a>
-                                        <p class="card-text"><small class="text-muted">${time}</small>
-                                            <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"
-                                                 height="20" onclick="bookmark()" style="cursor:pointer">
-                                        </p>
-                                    </div>
-                                </div>`
-                $("#smnews-cards").append(tempHtml);
-            }
+            // function showSMNews() {
+            //     $.ajax({
+            //         type: "GET",
+            //         url: "/smtown",
+            //         data: {},
+            //         success: function (response) {
+            //             if (response["result"] == "success") {
+            //                 makeSMNewsCard(response['headlines'], response['contents'], response['times'], response['imgs'], response['urls'])
+            //
+            //             } else {
+            //                 alert("SM TOWN 뉴스를 받아오지 못했습니다");
+            //             }
+            //         }
+            //     })
+            // }
+
+            // function makeSMNewsCard(headline, content, time, img, url) {
+            //     let tempHtml = `<div class="card" style="width: 360px;">
+            //                         <a href="${url}">
+            //                             <img class="card-img-top"
+            //                                  src="${img}"
+            //                                  alt="Card image cap">
+            //                         </a>
+            //                         <div class="card-body">
+            //                             <a href="${url}">
+            //                             <h5 class="card-title">${headline}</h5>
+            //                             </a>
+            //                             <a href="${url}"
+            //                                 <p class="card-text">${content}</p>
+            //                             </a>
+            //                             <p class="card-text"><small class="text-muted">${time}</small>
+            //                                 <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"
+            //                                      height="20" onclick="bookmark()" style="cursor:pointer">
+            //                             </p>
+            //                         </div>
+            //                     </div>`
+            //     $("#smnews-cards").append(tempHtml);
+            // }
 
             function showTwitters() {
                 $.ajax({
                     type: "GET",
-                    url: "/twitter",
+                    url: "/twitter_taemin",
                     data: {},
                     success: function (response) {
                         response = JSON.parse(response);
@@ -131,7 +139,6 @@
                 })
             }
 
-            //contents.text 맨 뒷 부분에 트윗링크도 붙어서 나오는데 중간에 다른 링크가 있는 경우가 있어서 http로 split할 수가 없지가 않고 내가 못 하겠음..
             function makeTwitterCard(contents) {
                 let tempHtml = `<div class="card">
                                     <div class="card-body">
@@ -148,7 +155,7 @@
             function showNaverNews() {
                 $.ajax({
                     type: "GET",
-                    url: "/navernews",
+                    url: "/navernews_taemin",
                     data: {},
                     success: function (response) {
                         response = JSON.parse(response);
@@ -164,6 +171,7 @@
                         } else {
                             alert("네이버 뉴스를 받아오지 못했습니다");
                         }
+
                     }
                 })
             }
@@ -186,108 +194,104 @@
                 $("#navernews-cards").append(tempHtml);
             }
 
-            //북마크 버튼 누르면 /bookmark에 append 하고 싶은데 찾아봐도 안 나옴.... 망함.......
-            function bookmark(tempHtml) {
+            function bookmark() {
                 alert('북마크에 추가되었습니다.')
-                $("").append(tempHtml)
             }
         </script>
 
     </head>
 
     <body>
-        <nav class="navbar navbar-expand-lg navbar-light">
-            <!--    로고 이미지랑 버튼들 위로 정렬해야 함.. 안 됨..-->
-            <a class="navbar-brand" href="#">
+        <nav class="navbar navbar-expand-lg navbar-light bg-img" id="navbar">
+            <a class="navbar-brand" href="/">
                 <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"
-                     height="60" style="margin-left: 20px">
+                     height="60" style="margin-left: 20px" >
             </a>
-            
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
                     aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
 
-            <!--    우선 태민 페이지만 함-->
             <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
                 <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="margin-left: 20px">
-                    <li class="nav-item active" style="text-align: right">
-                        <a class="nav-link" href="/onew" style="color: #79e5cb">온유</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/onew">온유</a>
                     </li>
-                    <li class="nav-item active" style="text-align: right">
-                        <a class="nav-link" href="/jonghyun" style="color: #79e5cb">종현</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/jonghyun">종현</a>
                     </li>
-                    <li class="nav-item active" style="text-align: right">
-                        <a class="nav-link" href="/minho" style="color: #79e5cb">민호</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/minho">민호</a>
                     </li>
-                    <li class="nav-item active" style="text-align: right">
-                        <a class="nav-link" href="/key" style="color: #79e5cb">키</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/key">키</a>
                     </li>
-                    <li class="nav-item active" style="text-align: right">
-                        <a class="nav-link" href="/taemin" style="color: #79e5cb">태민</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/taemin">6v6</a>
                     </li>
-                    <li class="nav-item active" style="text-align: right">
-                        <a class="nav-link" href="/bookmark" style="color: #79e5cb">북마크</a>
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/bookmark">북마크</a>
                     </li>
                 </ul>
+
             </div>
         </nav>
 
+        <!--        유튜브 뮤비 링크 넣는 부분-->
         <!--        지금은 바로 유튜브가 재생이 되는데 og img 넣고 url 넣을거임.. 근데 스크래핑 안됨 ㅠㅠ-->
-        <!--        화살표 버튼도 수정이 안 됨...-->
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-            <ol class="carousel-indicators">
-                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-            </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <iframe width="853" height="480" src="https://www.youtube.com/embed/jWhUIuucNdg" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </div>
-                <div class="carousel-item">
-                    <iframe width="853" height="480" src="https://www.youtube.com/embed/6prjy441FqY" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </div>
-                <div class="carousel-item">
-                    <iframe width="853" height="480" src="https://www.youtube.com/embed/jxZkprsz2Go" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </div>
-            </div>
-            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Previous</span>
-            </a>
-            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Next</span>
-            </a>
-        </div>
+        <!--        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">-->
+        <!--            <ol class="carousel-indicators">-->
+        <!--                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>-->
+        <!--                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>-->
+        <!--                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>-->
+        <!--            </ol>-->
+        <!--            <div class="carousel-inner">-->
+        <!--                <div class="carousel-item active">-->
+        <!--                    <iframe width="853" height="480" src="https://www.youtube.com/embed/jWhUIuucNdg" frameborder="0"-->
+        <!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
+        <!--                            allowfullscreen></iframe>-->
+        <!--                </div>-->
+        <!--                <div class="carousel-item">-->
+        <!--                    <iframe width="853" height="480" src="https://www.youtube.com/embed/6prjy441FqY" frameborder="0"-->
+        <!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
+        <!--                            allowfullscreen></iframe>-->
+        <!--                </div>-->
+        <!--                <div class="carousel-item">-->
+        <!--                    <iframe width="853" height="480" src="https://www.youtube.com/embed/jxZkprsz2Go" frameborder="0"-->
+        <!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
+        <!--                            allowfullscreen></iframe>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">-->
+        <!--                <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
+        <!--                <span class="sr-only">Previous</span>-->
+        <!--            </a>-->
+        <!--            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">-->
+        <!--                <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
+        <!--                <span class="sr-only">Next</span>-->
+        <!--            </a>-->
+        <!--        </div>-->
 
-        <!--        세로 3줄로 박스 넣는 공간임. 카드끼리, 박스끼리 간격 설정해야함. -->
+        <!--        세로 3줄로 박스 넣는 공간임. 카드끼리, 박스끼리 간격 설정해야함.-->
         <div class="cards-boxes">
             <div class="cards-box" id="smnews-cards">
-<!--                <div class="card" style="width: 360px;">-->
-<!--                    <img class="card-img-top"-->
-<!--                         src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"-->
-<!--                         alt="Card image cap">-->
-<!--                    <div class="card-body">-->
-<!--                        <h5 class="card-title">슴뉴스 헤드라인</h5>-->
-<!--                        <p class="card-text">슴뉴스 내용 블라블라 태미니 렬리티 9/3 첫방송~~~~</p>-->
-<!--                        <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago </small>-->
-<!--                            <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"-->
-<!--                                 height="20" onclick="bookmark()" style="cursor:pointer">-->
-<!--                        </p>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <div class="card" style="width: 360px;">
+                    <img class="card-img-top"
+                         src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"
+                         alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">슴뉴스 헤드라인</h5>
+                        <p class="card-text">슴뉴스 내용 블라블라 태미니 렬리티 9/3 첫방송~~~~</p>
+                        <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago </small>
+                            <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"
+                                 height="20" onclick="bookmark()" style="cursor:pointer">
+                        </p>
+                    </div>
+                </div>
             </div>
 
             <div class="cards-box" id="twitter-cards">
-<!--                <div class="card">-->
+                <div class="card">
 <!--                    <div class="card-body">-->
 <!--                        <p class="card-text">트위터 본문 가져오기~~~ 블라블라~~~</p>-->
 <!--                        <p class="card-text"><small class="text-muted">트위터 올라온 시간 Last updated 3 mins ago</small>-->
@@ -295,11 +299,11 @@
 <!--                                 height="20" onclick="bookmark()" style="cursor:pointer">-->
 <!--                        </p>-->
 <!--                    </div>-->
-<!--                </div>-->
+                </div>
             </div>
 
             <div class="cards-box" id="navernews-cards">
-<!--                <div class="card">-->
+                <div class="card">
 <!--                    <div class="card-body">-->
 <!--                        <h5 class="card-title">네이버 헤드라인</h5>-->
 <!--                        <p class="card-text">네이버 본문 블라블라</p>-->
@@ -308,7 +312,7 @@
 <!--                                 height="20" onclick="bookmark()" style="cursor:pointer">-->
 <!--                        </p>-->
 <!--                    </div>-->
-<!--                </div>-->
+                </div>
             </div>
         </div>
     </body>
