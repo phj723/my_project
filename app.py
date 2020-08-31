@@ -66,18 +66,20 @@ def bookmark():
 @app.route('/smtown', methods=['GET'])
 def smtown():
     smtowns = soup.select('li.grid-item')
+    data = []
     for smtown in smtowns:
-        headline = smtown.select_one('div > div.contentInfo > p.title.text_box > a').text.strip()
-        content = smtown.select_one('div > div.contentInfo > p.subInfo.text_box > a').text.strip()
-        time = smtown.select_one('div > div.contentInfo > ul > li').text
+        doc = {headline = smtown.select_one('div > div.contentInfo > p.title.text_box > a').text.strip(),
+        content = smtown.select_one('div > div.contentInfo > p.subInfo.text_box > a').text.strip(),
+        time = smtown.select_one('div > div.contentInfo > ul > li').text,
         img = smtown.select_one('div > div.thumb > a > img')
         if img is None:
             img = smtown.select_one('div > div.thumb > a')['style'].split("'")[1]
         else:
-            img = img['src']
+            img = img['src'],
         url = smtown.select_one('div > div.contentInfo > p.title.text_box > a')['href']
         if 'youtube' not in url:
-            url = 'https://now.smtown.com' + url
+            url = 'https://now.smtown.com' + url}
+        data.append(doc)
     return jsonify({'result': 'success', 'headlines': headline, 'contents': content, 'times': time, 'imgs': img, 'urls': url})
 
 @app.route('/twitter', methods=['GET'])
