@@ -65,7 +65,7 @@
         </style>
         <script>
             $(document).ready(function () {
-                // showSMNews();
+                showSMNews();
                 showTwitters();
                 showNaverNews();
                 showBgImage();
@@ -81,44 +81,51 @@
                 bgImg.style.backgroundImage = 'url(' + imgArray[imgNum] + ')';
             }
 
-            // function showSMNews() {
-            //     $.ajax({
-            //         type: "GET",
-            //         url: "/smtown",
-            //         data: {},
-            //         success: function (response) {
-            //             if (response["result"] == "success") {
-            //                 makeSMNewsCard(response['headlines'], response['contents'], response['times'], response['imgs'], response['urls'])
-            //
-            //             } else {
-            //                 alert("SM TOWN 뉴스를 받아오지 못했습니다");
-            //             }
-            //         }
-            //     })
-            // }
+            function showSMNews() {
+                $.ajax({
+                    type: "GET",
+                    url: "/smtown_taemin",
+                    data: {},
+                    success: function (response) {
+                        if (response["result"] == "success"){
+                            let smnews = response['smnews']
+                            for (i = 0; i < smnews.length; i++) {
+                                let headline = smnews[i]['headline']
+                                let content = smnews[i]['content']
+                                let time = smnews[i]['time']
+                                let img = smnews[i]['img']
+                                let url = smnews[i]['url']
+                                makeSMNewsCard(headline, content, time, img, url);
+                            }
+                        } else {
+                            alert("SM TOWN 뉴스를 받아오지 못했습니다");
+                        }
+                    }
+                })
+            }
 
-            // function makeSMNewsCard(headline, content, time, img, url) {
-            //     let tempHtml = `<div class="card" style="width: 360px;">
-            //                         <a href="${url}">
-            //                             <img class="card-img-top"
-            //                                  src="${img}"
-            //                                  alt="Card image cap">
-            //                         </a>
-            //                         <div class="card-body">
-            //                             <a href="${url}">
-            //                             <h5 class="card-title">${headline}</h5>
-            //                             </a>
-            //                             <a href="${url}"
-            //                                 <p class="card-text">${content}</p>
-            //                             </a>
-            //                             <p class="card-text"><small class="text-muted">${time}</small>
-            //                                 <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"
-            //                                      height="20" onclick="bookmark()" style="cursor:pointer">
-            //                             </p>
-            //                         </div>
-            //                     </div>`
-            //     $("#smnews-cards").append(tempHtml);
-            // }
+            function makeSMNewsCard(headline, content, time, img, url) {
+                let tempHtml = `<div class="card" style="width: 360px;">
+                                    <a href="${url}">
+                                        <img class="card-img-top"
+                                             src="${img}"
+                                             alt="Card image cap">
+                                    </a>
+                                    <div class="card-body">
+                                        <a href="${url}">
+                                        <h5 class="card-title">${headline}</h5>
+                                        </a>
+                                        <a href="${url}"
+                                            <p class="card-text">${content}</p>
+                                        </a>
+                                        <p class="card-text"><small class="text-muted">${time}</small>
+                                            <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"
+                                                 height="20" onclick="bookmark()" style="cursor:pointer">
+                                        </p>
+                                    </div>
+                                </div>`
+                $("#smnews-cards").append(tempHtml);
+            }
 
             function showTwitters() {
                 $.ajax({
@@ -237,57 +244,21 @@
             </div>
         </nav>
 
-        <!--        유튜브 뮤비 링크 넣는 부분-->
-        <!--        지금은 바로 유튜브가 재생이 되는데 og img 넣고 url 넣을거임.. 근데 스크래핑 안됨 ㅠㅠ-->
-        <!--        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">-->
-        <!--            <ol class="carousel-indicators">-->
-        <!--                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>-->
-        <!--                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>-->
-        <!--                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>-->
-        <!--            </ol>-->
-        <!--            <div class="carousel-inner">-->
-        <!--                <div class="carousel-item active">-->
-        <!--                    <iframe width="853" height="480" src="https://www.youtube.com/embed/jWhUIuucNdg" frameborder="0"-->
-        <!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
-        <!--                            allowfullscreen></iframe>-->
-        <!--                </div>-->
-        <!--                <div class="carousel-item">-->
-        <!--                    <iframe width="853" height="480" src="https://www.youtube.com/embed/6prjy441FqY" frameborder="0"-->
-        <!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
-        <!--                            allowfullscreen></iframe>-->
-        <!--                </div>-->
-        <!--                <div class="carousel-item">-->
-        <!--                    <iframe width="853" height="480" src="https://www.youtube.com/embed/jxZkprsz2Go" frameborder="0"-->
-        <!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
-        <!--                            allowfullscreen></iframe>-->
-        <!--                </div>-->
-        <!--            </div>-->
-        <!--            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">-->
-        <!--                <span class="carousel-control-prev-icon" aria-hidden="true"></span>-->
-        <!--                <span class="sr-only">Previous</span>-->
-        <!--            </a>-->
-        <!--            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">-->
-        <!--                <span class="carousel-control-next-icon" aria-hidden="true"></span>-->
-        <!--                <span class="sr-only">Next</span>-->
-        <!--            </a>-->
-        <!--        </div>-->
-
-        <!--        세로 3줄로 박스 넣는 공간임. 카드끼리, 박스끼리 간격 설정해야함.-->
         <div class="cards-boxes">
             <div class="cards-box" id="smnews-cards">
-                <div class="card" style="width: 360px;">
-                    <img class="card-img-top"
-                         src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"
-                         alt="Card image cap">
-                    <div class="card-body">
-                        <h5 class="card-title">슴뉴스 헤드라인</h5>
-                        <p class="card-text">슴뉴스 내용 블라블라 태미니 렬리티 9/3 첫방송~~~~</p>
-                        <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago </small>
-                            <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"
-                                 height="20" onclick="bookmark()" style="cursor:pointer">
-                        </p>
-                    </div>
-                </div>
+<!--                <div class="card" style="width: 360px;">-->
+<!--                    <img class="card-img-top"-->
+<!--                         src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"-->
+<!--                         alt="Card image cap">-->
+<!--                    <div class="card-body">-->
+<!--                        <h5 class="card-title">슴뉴스 헤드라인</h5>-->
+<!--                        <p class="card-text">슴뉴스 내용 블라블라 태미니 렬리티 9/3 첫방송~~~~</p>-->
+<!--                        <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago </small>-->
+<!--                            <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"-->
+<!--                                 height="20" onclick="bookmark()" style="cursor:pointer">-->
+<!--                        </p>-->
+<!--                    </div>-->
+<!--                </div>-->
             </div>
 
             <div class="cards-box" id="twitter-cards">

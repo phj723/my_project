@@ -67,21 +67,55 @@
         </style>
         <script>
             $(document).ready(function() {
+                showYoutube();
                 showSMNews();
                 showTwitters();
                 showNaverNews();
             });
 
-            // 슴뉴스를 한 개밖에 안 받아옴.. for문 돌리면 에러나서 일단 카드 하나만 만듦......
+            function showYoutube() {
+                $.ajax({
+                    type: "GET",
+                    url: "/youtube",
+                    data: {},
+                    success: function (response) {
+                        if (response["result"] == "success"){
+                            let youtubes = response['youtubes']
+                            for (i = 0; i < 3; i++) {
+                                let url = youtubes[i]['url']
+                                let img = youtubes[i]['origin_img']
+                                makeYoutubeCarousel(url, img);
+                            }
+                        } else {
+                            alert("Youtube 영상을 받아오지 못했습니다");
+                        }
+                    }
+                })
+            }
+
+            function makeYoutubeCarousel(url, img) {
+                let tempHtml = `<div class="carousel-item active">
+                                    <img src="${img}" onclick="window.open('${url}')" style="cursor:pointer">
+                                </div>`
+                $("#carousel-inner").append(tempHtml);
+            }
+
             function showSMNews() {
                 $.ajax({
                     type: "GET",
                     url: "/smtown",
                     data: {},
                     success: function (response) {
-                        if (response["result"] == "success") {
-                            makeSMNewsCard(response['headlines'], response['contents'], response['times'], response['imgs'], response['urls'])
-
+                        if (response["result"] == "success"){
+                            let smnews = response['smnews']
+                            for (i = 0; i < smnews.length; i++) {
+                                let headline = smnews[i]['headline']
+                                let content = smnews[i]['content']
+                                let time = smnews[i]['time']
+                                let img = smnews[i]['img']
+                                let url = smnews[i]['url']
+                                makeSMNewsCard(headline, content, time, img, url);
+                            }
                         } else {
                             alert("SM TOWN 뉴스를 받아오지 못했습니다");
                         }
@@ -122,6 +156,7 @@
                         if (response["result"] == "success") {
                             let twitters = response['twitters']
                             for (i = 0; i < twitters.length; i++) {
+                                let text = twitters[i]['text']
                                 makeTwitterCard(twitters[i]);
                             }
                         } else {
@@ -233,30 +268,29 @@
             </div>
         </nav>
 
-        <!--        지금은 바로 유튜브가 재생이 되는데 og img 넣고 url 넣을거임.. 근데 스크래핑 안됨 ㅠㅠ-->
-        <!--        화살표 버튼도 수정이 안 됨...-->
+        <!--        캐러셀 어펜드가 안 됨......화살표 버튼도 수정이 안 됨...-->
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
             </ol>
-            <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <iframe width="853" height="480" src="https://www.youtube.com/embed/jWhUIuucNdg" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </div>
-                <div class="carousel-item">
-                    <iframe width="853" height="480" src="https://www.youtube.com/embed/6prjy441FqY" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </div>
-                <div class="carousel-item">
-                    <iframe width="853" height="480" src="https://www.youtube.com/embed/jxZkprsz2Go" frameborder="0"
-                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-                            allowfullscreen></iframe>
-                </div>
+            <div class="carousel-inner" id="carousel-inner">
+<!--                <div class="carousel-item active">-->
+<!--                    <iframe width="853" height="480" src="https://www.youtube.com/embed/qcEcqstc2z0" frameborder="0"-->
+<!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
+<!--                            allowfullscreen></iframe>-->
+<!--                </div>-->
+<!--                <div class="carousel-item">-->
+<!--                    <iframe width="853" height="480" src="https://www.youtube.com/embed/6prjy441FqY" frameborder="0"-->
+<!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
+<!--                            allowfullscreen></iframe>-->
+<!--                </div>-->
+<!--                <div class="carousel-item">-->
+<!--                    <iframe width="853" height="480" src="https://www.youtube.com/embed/jxZkprsz2Go" frameborder="0"-->
+<!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
+<!--                            allowfullscreen></iframe>-->
+<!--                </div>-->
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
