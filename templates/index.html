@@ -22,7 +22,8 @@
 
 
         <!-- 구글폰트 -->
-        <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
 
 
         <title>스엠이 일 안 해서 직접 만든 샤이니 모아보기</title>
@@ -30,16 +31,20 @@
         <!-- style -->
         <style type="text/css">
             * {
-                font-family: 'Stylish', sans-serif;
+                /*font-family: 'Gaegu', cursive;*/
+                font-family: 'Poor Story', cursive;
             }
 
             .card {
                 width: 360px;
+                margin-top: 6px;
             }
 
             .cards-box {
                 display: inline-block;
                 vertical-align: top;
+                margin-left: 15px;
+                margin-right: 15px;
                 /*width: 360px;*/
                 /*float: left;*/
             }
@@ -60,13 +65,15 @@
 
             #carouselExampleIndicators {
                 padding-top: 90px;
-                width: 853px;
+                text-align: center;
+                /*width: auto;*/
+                width: 960px;
                 margin: 0 auto;
             }
 
         </style>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 showYoutube();
                 showSMNews();
                 showTwitters();
@@ -79,12 +86,17 @@
                     url: "/youtube",
                     data: {},
                     success: function (response) {
-                        if (response["result"] == "success"){
+                        if (response["result"] == "success") {
                             let youtubes = response['youtubes']
-                            for (i = 0; i < 3; i++) {
+                            let url1 = youtubes[0]['url']
+                            let img1 = youtubes[0]['origin_img']
+                            let title1 = youtubes[0]['title']
+                            makeYoutubeCarousel1(url1, img1, title1);
+                            for (i = 1; i < 5; i++) {
                                 let url = youtubes[i]['url']
                                 let img = youtubes[i]['origin_img']
-                                makeYoutubeCarousel(url, img);
+                                let title = youtubes[0]['title']
+                                makeYoutubeCarousel(url, img, title);
                             }
                         } else {
                             alert("Youtube 영상을 받아오지 못했습니다");
@@ -93,9 +105,20 @@
                 })
             }
 
+            function makeYoutubeCarousel1(url1, img1, title1) {
+                let tempHtml1 = `<div class="carousel-item active">
+                                    <img src="${img1}" width="640px">
+                                    '${title1}'
+                                    <img src="https://smcdn.smtown.com/image/pc/main/btn_video_play.png"
+                                         onclick="window.open('${url1}')" style="cursor:pointer;">
+                                </div>`
+
+                $("#carousel-inner").append(tempHtml1);
+            }
+
             function makeYoutubeCarousel(url, img) {
-                let tempHtml = `<div class="carousel-item active">
-                                    <img src="${img}" onclick="window.open('${url}')" style="cursor:pointer">
+                let tempHtml = `<div class="carousel-item">
+                                    <img src="${img}" onclick="window.open('${url}')" style="cursor:pointer" width="640px">
                                 </div>`
                 $("#carousel-inner").append(tempHtml);
             }
@@ -106,7 +129,7 @@
                     url: "/smtown",
                     data: {},
                     success: function (response) {
-                        if (response["result"] == "success"){
+                        if (response["result"] == "success") {
                             let smnews = response['smnews']
                             for (i = 0; i < smnews.length; i++) {
                                 let headline = smnews[i]['headline']
@@ -166,7 +189,6 @@
                 })
             }
 
-            //contents.text 맨 뒷 부분에 트윗링크도 붙어서 나오는데 중간에 다른 링크가 있는 경우가 있어서 http로 split할 수가 없지가 않고 내가 못 하겠음..
             function makeTwitterCard(contents) {
                 let tempHtml = `<div class="card">
                                     <div class="card-body">
@@ -237,7 +259,7 @@
                 <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"
                      height="60" style="margin-left: 20px">
             </a>
-            
+
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
                     aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -268,29 +290,31 @@
             </div>
         </nav>
 
-        <!--        캐러셀 어펜드가 안 됨......화살표 버튼도 수정이 안 됨...-->
+        <!--        화살표 버튼도 수정이 안 됨...-->
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
             <ol class="carousel-indicators">
                 <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
                 <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                <li data-target="#carouselExampleIndicators" data-slide-to="4"></li>
             </ol>
             <div class="carousel-inner" id="carousel-inner">
-<!--                <div class="carousel-item active">-->
-<!--                    <iframe width="853" height="480" src="https://www.youtube.com/embed/qcEcqstc2z0" frameborder="0"-->
-<!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
-<!--                            allowfullscreen></iframe>-->
-<!--                </div>-->
-<!--                <div class="carousel-item">-->
-<!--                    <iframe width="853" height="480" src="https://www.youtube.com/embed/6prjy441FqY" frameborder="0"-->
-<!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
-<!--                            allowfullscreen></iframe>-->
-<!--                </div>-->
-<!--                <div class="carousel-item">-->
-<!--                    <iframe width="853" height="480" src="https://www.youtube.com/embed/jxZkprsz2Go" frameborder="0"-->
-<!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
-<!--                            allowfullscreen></iframe>-->
-<!--                </div>-->
+                <!--                <div class="carousel-item active">-->
+                <!--                    <iframe width="853" height="480" src="https://www.youtube.com/embed/qcEcqstc2z0" frameborder="0"-->
+                <!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
+                <!--                            allowfullscreen></iframe>-->
+                <!--                </div>-->
+                <!--                <div class="carousel-item">-->
+                <!--                    <iframe width="853" height="480" src="https://www.youtube.com/embed/6prjy441FqY" frameborder="0"-->
+                <!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
+                <!--                            allowfullscreen></iframe>-->
+                <!--                </div>-->
+                <!--                <div class="carousel-item">-->
+                <!--                    <iframe width="853" height="480" src="https://www.youtube.com/embed/jxZkprsz2Go" frameborder="0"-->
+                <!--                            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"-->
+                <!--                            allowfullscreen></iframe>-->
+                <!--                </div>-->
             </div>
             <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
                 <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -305,44 +329,53 @@
         <!--        세로 3줄로 박스 넣는 공간임. 카드끼리, 박스끼리 간격 설정해야함. -->
         <div class="cards-boxes">
             <div class="cards-box" id="smnews-cards">
-<!--                <div class="card" style="width: 360px;">-->
-<!--                    <img class="card-img-top"-->
-<!--                         src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"-->
-<!--                         alt="Card image cap">-->
-<!--                    <div class="card-body">-->
-<!--                        <h5 class="card-title">슴뉴스 헤드라인</h5>-->
-<!--                        <p class="card-text">슴뉴스 내용 블라블라 태미니 렬리티 9/3 첫방송~~~~</p>-->
-<!--                        <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago </small>-->
-<!--                            <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"-->
-<!--                                 height="20" onclick="bookmark()" style="cursor:pointer">-->
-<!--                        </p>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <img src="https://lh3.googleusercontent.com/jlott2WM31UTHMpo9u9PbH4sI60xzFluPan5UHoHh76a8y9VmyaNRVMKPm91LB5PVQ"
+                     height="60px" style="border-radius: 10px; margin-bottom: 10px; margin-top: 10px; cursor: pointer"
+                     onclick="window.open('https://now.smtown.com/news')">
+                <!--                <div class="card" style="width: 360px;">-->
+                <!--                    <img class="card-img-top"-->
+                <!--                         src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"-->
+                <!--                         alt="Card image cap">-->
+                <!--                    <div class="card-body">-->
+                <!--                        <h5 class="card-title">슴뉴스 헤드라인</h5>-->
+                <!--                        <p class="card-text">슴뉴스 내용 블라블라 태미니 렬리티 9/3 첫방송~~~~</p>-->
+                <!--                        <p class="card-text"><small class="text-muted">뉴스 올라온 시간 Last updated 3 mins ago </small>-->
+                <!--                            <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"-->
+                <!--                                 height="20" onclick="bookmark()" style="cursor:pointer">-->
+                <!--                        </p>-->
+                <!--                    </div>-->
+                <!--                </div>-->
             </div>
 
             <div class="cards-box" id="twitter-cards">
-<!--                <div class="card">-->
-<!--                    <div class="card-body">-->
-<!--                        <p class="card-text">트위터 본문 가져오기~~~ 블라블라~~~</p>-->
-<!--                        <p class="card-text"><small class="text-muted">트위터 올라온 시간 Last updated 3 mins ago</small>-->
-<!--                            <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"-->
-<!--                                 height="20" onclick="bookmark()" style="cursor:pointer">-->
-<!--                        </p>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <img src="https://pbs.twimg.com/media/Eg1exOgUwAIBVnP?format=png&name=small"
+                     height="80px" style="cursor: pointer"
+                     onclick="window.open('https://twitter.com/search?q=%EC%83%A4%EC%9D%B4%EB%8B%88&src=typed_query')">
+                <!--                <div class="card">-->
+                <!--                    <div class="card-body">-->
+                <!--                        <p class="card-text">트위터 본문 가져오기~~~ 블라블라~~~</p>-->
+                <!--                        <p class="card-text"><small class="text-muted">트위터 올라온 시간 Last updated 3 mins ago</small>-->
+                <!--                            <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"-->
+                <!--                                 height="20" onclick="bookmark()" style="cursor:pointer">-->
+                <!--                        </p>-->
+                <!--                    </div>-->
+                <!--                </div>-->
             </div>
 
             <div class="cards-box" id="navernews-cards">
-<!--                <div class="card">-->
-<!--                    <div class="card-body">-->
-<!--                        <h5 class="card-title">네이버 헤드라인</h5>-->
-<!--                        <p class="card-text">네이버 본문 블라블라</p>-->
-<!--                        <p class="card-text"><small class="text-muted">시간</small>-->
-<!--                            <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"-->
-<!--                                 height="20" onclick="bookmark()" style="cursor:pointer">-->
-<!--                        </p>-->
-<!--                    </div>-->
-<!--                </div>-->
+                <img src="https://mblogthumb-phinf.pstatic.net/20160622_73/hhtthh82_1466581509899OrBaG_PNG/%B3%D7%C0%CC%B9%F6-%B7%CE%B0%ED-%B0%ED%C8%AD%C1%FA.png?type=w800"
+                     height="80px" style="cursor: pointer"
+                     onclick="window.open('https://search.naver.com/search.naver?query=%EC%83%A4%EC%9D%B4%EB%8B%88&where=news&ie=utf8&sm=nws_hty')">
+                <!--                <div class="card">-->
+                <!--                    <div class="card-body">-->
+                <!--                        <h5 class="card-title">네이버 헤드라인</h5>-->
+                <!--                        <p class="card-text">네이버 본문 블라블라</p>-->
+                <!--                        <p class="card-text"><small class="text-muted">시간</small>-->
+                <!--                            <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"-->
+                <!--                                 height="20" onclick="bookmark()" style="cursor:pointer">-->
+                <!--                        </p>-->
+                <!--                    </div>-->
+                <!--                </div>-->
             </div>
         </div>
     </body>

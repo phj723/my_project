@@ -91,14 +91,15 @@ def youtube():
         url = 'https://www.youtube.com/watch?v=' + video_id['playlistVideoRenderer']['videoId']
         img = video_id['playlistVideoRenderer']['thumbnail']['thumbnails'][0]['url']
         origin_img = img.split('?')[0]
-        youtube = {'url': url, 'origin_img': origin_img}
+        title = video_id['playlistVideoRenderer']['title']['simpleText']
+        youtube = {'url': url, 'origin_img': origin_img, 'title': title}
         youtubes.append(youtube)
     return jsonify({'result': 'success', 'youtubes': youtubes})
 
 
 @app.route('/smtown', methods=['GET'])
 def smtown():
-    smtown_data = requests.post('https://now.smtown.com/news/more', headers=headers, data={'pageSize': 50})
+    smtown_data = requests.post('https://now.smtown.com/news/more', headers=headers, data={'pageSize': 20})
     soup = BeautifulSoup(smtown_data.text, 'html.parser')
     smtowns = soup.select('li.grid-item')
     smnews = []
@@ -134,7 +135,7 @@ def twitter():
 def navernews():
     search_word = '샤이니' #검색어
     encode_type = 'json' #출력 방식 json 또는 xml
-    max_display = 20 #출력 뉴스 수
+    max_display = 40 #출력 뉴스 수
     sort = 'sim' #결과값의 정렬기준 시간순 date, 관련도 순 sim
     start = 1 # 출력 위치
     url = f"https://openapi.naver.com/v1/search/news.{encode_type}?query={search_word}&display={str(int(max_display))}&start={str(int(start))}&sort={sort}"
@@ -147,6 +148,8 @@ def navernews():
 ########## onew page
 @app.route('/smtown_onew', methods=['GET'])
 def smtown_onew():
+    smtown_data = requests.post('https://now.smtown.com/news/more', headers=headers, data={'pageSize': 20})
+    soup = BeautifulSoup(smtown_data.text, 'html.parser')
     smtowns = soup.select('li.grid-item')
     smnews = []
     for smtown in smtowns:
@@ -173,7 +176,7 @@ def smtown_onew():
 @app.route('/twitter_onew', methods=['GET'])
 def twitter_onew():
     query = "온유"
-    twitters = twitter_api.GetSearch(term=query, count=30, lang='ko')
+    twitters = twitter_api.GetSearch(term=query, count=50, lang='ko')
     # return json.dumps({'result': 'success', 'twitters': twitters}, default=dumper, indent=2)
     return jsonpickle.encode({'result': 'success', 'twitters': twitters})
 
@@ -181,7 +184,7 @@ def twitter_onew():
 def navernews_onew():
     search_word = '온유' #검색어
     encode_type = 'json' #출력 방식 json 또는 xml
-    max_display = 20 #출력 뉴스 수
+    max_display = 40 #출력 뉴스 수
     sort = 'sim' #결과값의 정렬기준 시간순 date, 관련도 순 sim
     start = 1 # 출력 위치
     url = f"https://openapi.naver.com/v1/search/news.{encode_type}?query={search_word}&display={str(int(max_display))}&start={str(int(start))}&sort={sort}"
@@ -194,6 +197,8 @@ def navernews_onew():
 ########## jonghyun page
 @app.route('/smtown_jonghyun', methods=['GET'])
 def smtown_jonghyun():
+    smtown_data = requests.post('https://now.smtown.com/news/more', headers=headers, data={'pageSize': 20})
+    soup = BeautifulSoup(smtown_data.text, 'html.parser')
     smtowns = soup.select('li.grid-item')
     smnews = []
     for smtown in smtowns:
@@ -220,7 +225,7 @@ def smtown_jonghyun():
 @app.route('/twitter_jonghyun', methods=['GET'])
 def twitter_jonghyun():
     query = "샤이니 종현"
-    twitters = twitter_api.GetSearch(term=query, count=30, lang='ko')
+    twitters = twitter_api.GetSearch(term=query, count=50, lang='ko')
     # return json.dumps({'result': 'success', 'twitters': twitters}, default=dumper, indent=2)
     return jsonpickle.encode({'result': 'success', 'twitters': twitters})
 
@@ -228,7 +233,7 @@ def twitter_jonghyun():
 def navernews_jonghyun():
     search_word = '샤이니 종현' #검색어
     encode_type = 'json' #출력 방식 json 또는 xml
-    max_display = 20 #출력 뉴스 수
+    max_display = 40 #출력 뉴스 수
     sort = 'sim' #결과값의 정렬기준 시간순 date, 관련도 순 sim
     start = 1 # 출력 위치
     url = f"https://openapi.naver.com/v1/search/news.{encode_type}?query={search_word}&display={str(int(max_display))}&start={str(int(start))}&sort={sort}"
@@ -242,6 +247,8 @@ def navernews_jonghyun():
 ########## key page
 @app.route('/smtown_key', methods=['GET'])
 def smtown_key():
+    smtown_data = requests.post('https://now.smtown.com/news/more', headers=headers, data={'pageSize': 20})
+    soup = BeautifulSoup(smtown_data.text, 'html.parser')
     smtowns = soup.select('li.grid-item')
     smnews = []
     for smtown in smtowns:
@@ -268,7 +275,7 @@ def smtown_key():
 @app.route('/twitter_key', methods=['GET'])
 def twitter_key():
     query = "샤이니 키"
-    twitters = twitter_api.GetSearch(term=query, count=30, lang='ko')
+    twitters = twitter_api.GetSearch(term=query, count=50, lang='ko')
     # return json.dumps({'result': 'success', 'twitters': twitters}, default=dumper, indent=2)
     return jsonpickle.encode({'result': 'success', 'twitters': twitters})
 
@@ -276,7 +283,7 @@ def twitter_key():
 def navernews_key():
     search_word = '샤이니 키' #검색어
     encode_type = 'json' #출력 방식 json 또는 xml
-    max_display = 20 #출력 뉴스 수
+    max_display = 40 #출력 뉴스 수
     sort = 'sim' #결과값의 정렬기준 시간순 date, 관련도 순 sim
     start = 1 # 출력 위치
     url = f"https://openapi.naver.com/v1/search/news.{encode_type}?query={search_word}&display={str(int(max_display))}&start={str(int(start))}&sort={sort}"
@@ -290,6 +297,8 @@ def navernews_key():
 ########## minho page
 @app.route('/smtown_minho', methods=['GET'])
 def smtown_minho():
+    smtown_data = requests.post('https://now.smtown.com/news/more', headers=headers, data={'pageSize': 20})
+    soup = BeautifulSoup(smtown_data.text, 'html.parser')
     smtowns = soup.select('li.grid-item')
     smnews = []
     for smtown in smtowns:
@@ -316,7 +325,7 @@ def smtown_minho():
 @app.route('/twitter_minho', methods=['GET'])
 def twitter_minho():
     query = "샤이니 민호"
-    twitters = twitter_api.GetSearch(term=query, count=30, lang='ko')
+    twitters = twitter_api.GetSearch(term=query, count=50, lang='ko')
     # return json.dumps({'result': 'success', 'twitters': twitters}, default=dumper, indent=2)
     return jsonpickle.encode({'result': 'success', 'twitters': twitters})
 
@@ -324,7 +333,7 @@ def twitter_minho():
 def navernews_minho():
     search_word = '샤이니 민호' #검색어
     encode_type = 'json' #출력 방식 json 또는 xml
-    max_display = 20 #출력 뉴스 수
+    max_display = 40 #출력 뉴스 수
     sort = 'sim' #결과값의 정렬기준 시간순 date, 관련도 순 sim
     start = 1 # 출력 위치
     url = f"https://openapi.naver.com/v1/search/news.{encode_type}?query={search_word}&display={str(int(max_display))}&start={str(int(start))}&sort={sort}"
@@ -338,6 +347,8 @@ def navernews_minho():
 ########## taemin page
 @app.route('/smtown_taemin', methods=['GET'])
 def smtown_taemin():
+    smtown_data = requests.post('https://now.smtown.com/news/more', headers=headers, data={'pageSize': 20})
+    soup = BeautifulSoup(smtown_data.text, 'html.parser')
     smtowns = soup.select('li.grid-item')
     smnews = []
     for smtown in smtowns:
@@ -364,7 +375,7 @@ def smtown_taemin():
 @app.route('/twitter_taemin', methods=['GET'])
 def twitter_taemin():
     query = "태민"
-    twitters = twitter_api.GetSearch(term=query, count=30, lang='ko')
+    twitters = twitter_api.GetSearch(term=query, count=50, lang='ko')
     # return json.dumps({'result': 'success', 'twitters': twitters}, default=dumper, indent=2)
     return jsonpickle.encode({'result': 'success', 'twitters': twitters})
 
@@ -372,7 +383,7 @@ def twitter_taemin():
 def navernews_taemin():
     search_word = '태민' #검색어
     encode_type = 'json' #출력 방식 json 또는 xml
-    max_display = 20 #출력 뉴스 수
+    max_display = 40 #출력 뉴스 수
     sort = 'sim' #결과값의 정렬기준 시간순 date, 관련도 순 sim
     start = 1 # 출력 위치
     url = f"https://openapi.naver.com/v1/search/news.{encode_type}?query={search_word}&display={str(int(max_display))}&start={str(int(start))}&sort={sort}"

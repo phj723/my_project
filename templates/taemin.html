@@ -22,7 +22,8 @@
 
 
         <!-- 구글폰트 -->
-        <link href="https://fonts.googleapis.com/css?family=Stylish&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@300&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
 
 
         <title>스엠이 일 안 해서 직접 만든 샤이니 모아보기</title>
@@ -30,16 +31,20 @@
         <!-- style -->
         <style type="text/css">
             * {
-                font-family: 'Stylish', sans-serif;
+                /*font-family: 'Gaegu', cursive;*/
+                font-family: 'Poor Story', cursive;
             }
 
             .card {
                 width: 360px;
+                margin-top: 6px;
             }
 
             .cards-box {
                 display: inline-block;
                 vertical-align: top;
+                margin-left: 15px;
+                margin-right: 15px;
                 /*width: 360px;*/
                 /*float: left;*/
             }
@@ -76,6 +81,7 @@
                 imgArray[0] = "http://socdn.smtown.com/upload/mf/gallery/images/2018/06/25/o_1cgqdtqg6i077p1137t18s64vj11.jpg";
                 imgArray[1] = "http://socdn.smtown.com/upload/mf/gallery/images/2017/12/09/o_1c0tmcgd35h8od216ql9pvnhp1g.jpg";
                 imgArray[2] = "https://stat.ameba.jp/user_images/20200731/15/shizmm/8b/81/j/o1080071914796983163.jpg";
+
                 var imgNum = Math.round(Math.random() * 3);
                 var bgImg = document.getElementById('navbar');
                 bgImg.style.backgroundImage = 'url(' + imgArray[imgNum] + ')';
@@ -211,7 +217,7 @@
     <body>
         <nav class="navbar navbar-expand-lg navbar-light bg-img" id="navbar">
             <a class="navbar-brand" href="/">
-                <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240"
+                <img src="https://pbs.twimg.com/media/Eg1xmZsU4AA0w7E?format=png&name=240x240"
                      height="60" style="margin-left: 20px" >
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
@@ -246,6 +252,7 @@
 
         <div class="cards-boxes">
             <div class="cards-box" id="smnews-cards">
+                <img src="https://lh3.googleusercontent.com/jlott2WM31UTHMpo9u9PbH4sI60xzFluPan5UHoHh76a8y9VmyaNRVMKPm91LB5PVQ" height="60px" style="border-radius: 10px; margin-bottom: 10px; margin-top: 10px">
 <!--                <div class="card" style="width: 360px;">-->
 <!--                    <img class="card-img-top"-->
 <!--                         src="https://i.ytimg.com/vi/jWhUIuucNdg/hqdefault.jpg?sqp=-oaymwEZCNACELwBSFXyq4qpAwsIARUAAIhCGAFwAQ==&rs=AOn4CLByjx9YN-FelNYRsJBO9KVMIks19A"-->
@@ -262,7 +269,8 @@
             </div>
 
             <div class="cards-box" id="twitter-cards">
-                <div class="card">
+                <img src="https://pbs.twimg.com/media/Eg1exOgUwAIBVnP?format=png&name=small" height="80px">
+<!--                <div class="card">-->
 <!--                    <div class="card-body">-->
 <!--                        <p class="card-text">트위터 본문 가져오기~~~ 블라블라~~~</p>-->
 <!--                        <p class="card-text"><small class="text-muted">트위터 올라온 시간 Last updated 3 mins ago</small>-->
@@ -270,11 +278,12 @@
 <!--                                 height="20" onclick="bookmark()" style="cursor:pointer">-->
 <!--                        </p>-->
 <!--                    </div>-->
-                </div>
+<!--                </div>-->
             </div>
 
             <div class="cards-box" id="navernews-cards">
-                <div class="card">
+                <img src="https://mblogthumb-phinf.pstatic.net/20160622_73/hhtthh82_1466581509899OrBaG_PNG/%B3%D7%C0%CC%B9%F6-%B7%CE%B0%ED-%B0%ED%C8%AD%C1%FA.png?type=w800" height="80px">
+<!--                <div class="card">-->
 <!--                    <div class="card-body">-->
 <!--                        <h5 class="card-title">네이버 헤드라인</h5>-->
 <!--                        <p class="card-text">네이버 본문 블라블라</p>-->
@@ -283,7 +292,7 @@
 <!--                                 height="20" onclick="bookmark()" style="cursor:pointer">-->
 <!--                        </p>-->
 <!--                    </div>-->
-                </div>
+<!--                </div>-->
             </div>
         </div>
     </body>
