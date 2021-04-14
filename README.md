@@ -17,22 +17,9 @@
 - 홈에서는 공식 유튜브 채널에 업로드 된 최신 영상을 캐러셀로 3개까지 보여줍니다.
 
 ## 참조 Reference
-*(참고 리소스,  code snippet, 라이센스 정보를 표기합니다)*
 - [네이버 뉴스 API](https://developers.naver.com/docs/search/news) : 네이버 뉴스 카드 업데이트에 사용
 - [트위터 API](https://help.twitter.com/ko/rules-and-policies/twitter-api) : 트위터 카드 업데이트에 사용 
 
 ## Links
-*(사람이 읽기 쉽게 요약된 링크 정보를 추가합니다. 현재 리포지토리의 정보를 적습니다)*
 - Project homepage: (예시) https://yourname.github.io/github-tutorial/
-- Repository: (예시) https://github.com/ohahohah/github-tutorial
-- 관련 프로젝트
-  - 프로젝트 이름 : (예시) https://github.com/ohahohah/readme-template
-  - 프로젝트 이름: (예시) https://github.com/someones/awesome-project/
-
-## License
-*(공동작업자가 있을 경우 모두 적어줍니다)*  
-이름1 – [이메일 주소1](mailto:이메일주소@example.com)  
-이름2 - [이메일 주소2](mailto:이메일주소@example.com)  
-
-XYZ license를 준수합니다. ``LICENSE``에서 자세한 정보를 확인할 수 있습니다.  
-(예시) [https://github.com/yourname/github-link/LICENSE.md](https://github.com/ohahohah/)
+- Repository: https://github.com/phj723/sparta_myProject
