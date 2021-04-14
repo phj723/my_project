@@ -19,18 +19,18 @@ headers = {'User-Agent' : 'Mozilla/5.0 (Windows NT 10.0; Win64; x64)AppleWebKit/
 #         return obj.toJSON()
 #     except:
 #         return obj.__dict__
-twitter_consumer_key = "VbEurffmreTbhLXPby53czsqp"
-twitter_consumer_secret = "sy693qyr17CyTKzVoYtTMkxurj2gp98OyqzUvJqe4XkBjKB3kB"
-twitter_access_token = "1293456768001949701-BV8JFWtownCcl0KnCB1qQ2a3JHjKeF"
-twitter_access_secret = "AbdDAtOIl1LeXIgkDk2gAKx6oXWjrxjqdYZSNIHJYp24W"
+twitter_consumer_key = "깃에는 지워서 올림"
+twitter_consumer_secret = "깃에는 지워서 올림"
+twitter_access_token = "깃에는 지워서 올림"
+twitter_access_secret = "깃에는 지워서 올림"
 twitter_api = twitter.Api(consumer_key=twitter_consumer_key,
                           consumer_secret=twitter_consumer_secret,
                           access_token_key=twitter_access_token,
                           access_token_secret=twitter_access_secret)
 
 #네이버
-client_id = "h6vb0WM2BoawV1YltfbB" #1.에서 취득한 아이디 넣기
-client_secret = "JPnVm0Q_D8"  #1. 에서 취득한 키 넣기
+client_id = "깃에는 지워서 올림" #1.에서 취득한 아이디 넣기
+client_secret = "깃에는 지워서 올림"  #1. 에서 취득한 키 넣기
 
 app = Flask(__name__)
 
