@@ -1,4 +1,4 @@
-<img src="https://user-images.githubusercontent.com/17819874/79853717-5db2f900-8403-11ea-99ba-ed0bb3cdb9ef.png" height="100"/>
+<img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240" height="100"/>
 
 # 프로젝트 이름  
 [![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org)
