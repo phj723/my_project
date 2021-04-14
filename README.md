@@ -1,11 +1,6 @@
 <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240" height="100"/>
 
 # 최애돌 모아보기  
-[![made-with-Markdown](https://img.shields.io/badge/Made%20with-Markdown-1f425f.svg)](http://commonmark.org)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/ohahohah/readme-template/graphs/commit-activity) 
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
-
-
 
 > 여기저기 정보가 난무하는 시대, 내 최애 아이돌 소식을 놓치거나 뒷북치지 않기 위한 '모아보기' 페이지!
 - http://shineesback.shop (현재 서버 종료)
@@ -20,6 +15,5 @@
 - [네이버 뉴스 API](https://developers.naver.com/docs/search/news) : 네이버 뉴스 카드 업데이트에 사용
 - [트위터 API](https://help.twitter.com/ko/rules-and-policies/twitter-api) : 트위터 카드 업데이트에 사용 
 
-## Links
-- Project homepage: (예시) https://yourname.github.io/github-tutorial/
+## 링크 Links
 - Repository: https://github.com/phj723/sparta_myProject
