@@ -1,4 +1,6 @@
-<img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240" height="100"/> project SHINee's BACK💎
+<img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240" height="100"/>
+
+# 샤이니스백 프로젝트
 
 # 최애돌 모아보기  
 
