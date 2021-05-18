@@ -1,4 +1,4 @@
-<img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240" height="100"/>
+<img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240" height="100"/> project SHINee's BACK💎
 
 # 최애돌 모아보기  
 
@@ -8,8 +8,13 @@
 
 ## 핵심 기능  Key Feature
 - 공식 홈페이지, 트위터, 네이버 뉴스에서 샤이니 키워드만 걸러 실시간으로 보여줍니다. 물론 클릭하면 해당 페이지로 이동합니다.
-- 각 멤버별로 메뉴가 나누어져 있어서 구분해서 볼 수 있습니다.
 - 홈에서는 공식 유튜브 채널에 업로드 된 최신 영상을 캐러셀로 3개까지 보여줍니다.
+- 각 멤버별로 메뉴가 나누어져 있어서 구분해서 볼 수 있습니다.
+- 멤버 페이지의 상단 이미지는 랜덤으로 다른 사진이 보여집니다.
+
+<img src="https://pbs.twimg.com/media/E1pOYReUUAcBNcm?format=jpg&name=large">
+<img src="https://pbs.twimg.com/media/E1pOYRfVUAAW9TN?format=jpg&name=large">
+<img src="https://pbs.twimg.com/media/E1pOYRfVEAMg8y2?format=jpg&name=large">
 
 ## 참조 Reference
 - [네이버 뉴스 API](https://developers.naver.com/docs/search/news) : 네이버 뉴스 카드 업데이트에 사용
