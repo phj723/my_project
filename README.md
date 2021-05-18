@@ -12,7 +12,6 @@
 - 멤버 페이지의 상단 이미지는 랜덤으로 다른 사진이 보여집니다.
 
 <img src="https://pbs.twimg.com/media/E1pOYReUUAcBNcm?format=jpg&name=large">
-<img src="https://pbs.twimg.com/media/E1pOYRfVUAAW9TN?format=jpg&name=large">
 <img src="https://pbs.twimg.com/media/E1pOYRfVEAMg8y2?format=jpg&name=large">
 
 ## 참조 Reference
