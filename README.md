@@ -1,9 +1,6 @@
 <img src="https://pbs.twimg.com/media/Egg6mTKUYAACbXn?format=png&name=240x240" height="100"/>
 
 # 샤이니스백 프로젝트
-
-# 최애돌 모아보기  
-
 > 여기저기 정보가 난무하는 시대, 내 최애 아이돌 소식을 놓치거나 뒷북치지 않기 위한 '모아보기' 페이지!
 - http://shineesback.shop (현재 서버 종료)
 - 홈에는 샤이니 전체와 유튜브 최신 영상, 상단 메뉴에는 각 멤버별 페이지
