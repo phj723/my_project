@@ -11,7 +11,7 @@
 - 각 멤버별로 메뉴가 나누어져 있어서 구분해서 볼 수 있습니다.
 - 멤버 페이지의 상단 이미지는 랜덤으로 다른 사진이 보여집니다.
 
-<img src="https://pbs.twimg.com/media/E1pOYReUUAcBNcm?format=jpg&name=large" border="1">
+<img src="https://pbs.twimg.com/media/E1pOYReUUAcBNcm?format=jpg&name=large" style="border:1">
 <img src="https://pbs.twimg.com/media/E1pOYRfVUAAW9TN?format=jpg&name=large">
 <img src="https://pbs.twimg.com/media/E1pOYRfVEAMg8y2?format=jpg&name=large">
 
